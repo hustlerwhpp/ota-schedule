@@ -1,6 +1,6 @@
 {
-  "versionCode": 2,
-  "versionName": "1.1.0",
-  "apkUrl": "https://github.com/ВАШ_АККАУНТ/ВАШ_РЕПОЗИТОРИЙ/releases/download/v1.1.0/app-release.apk",
-  "releaseNotes": "Дизайн"
+  "versionCode": 5,
+  "versionName": "1.4.0",
+  "apkUrl": "https://github.com",
+  "releaseNotes": "Дизайн и исправление стабильности"
 }
