@@ -1,6 +1,6 @@
 {
   "versionCode": 5,
-  "versionName": "1.5.0",
-  "apkUrl": "https://github.com",
-  "releaseNotes": "Дизайн и исправление стабильности"
+  "versionName": "2.1",
+  "apkUrl": "https://github.com/hustlerwhpp/ota-schedule/releases/download/2.1/Schedule-9-IS403.apk",
+  "releaseNotes": "• Обновлен дизайн и повышена стабильность\n• Добавлена ссылка на Все сервисы (list.whpp.site)\n• Исправлена система OTA-обновлений"
 }
