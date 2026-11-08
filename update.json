@@ -1,6 +1,6 @@
 {
-  "versionCode": 6,
-  "versionName": "3.0",
+  "versionCode": 7,
+  "versionName": "4.0",
   "apkUrl": "https://github.com/hustlerwhpp/ota-schedule/releases/download/2.1/Schedule-9-IS403.apk",
   "releaseNotes": "• Обновлен дизайн и повышена стабильность\n• Добавлена ссылка на Все сервисы (list.whpp.site)\n• Исправлена система OTA-обновлений"
 }
