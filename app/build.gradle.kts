@@ -15,8 +15,18 @@ android {
         versionName = "4.3.0"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("release.jks")
+            storePassword = System.getenv("KEYSTORE_PASS") ?: "whpp2026release"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "whpp-release"
+            keyPassword = System.getenv("KEY_PASS") ?: "whpp2026release"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
         }
     }

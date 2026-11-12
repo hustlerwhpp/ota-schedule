@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Release APK
 
 on:
   push:
@@ -24,13 +24,13 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon
+      - name: Build Release APK
+        run: gradle assembleRelease --no-daemon
 
-      - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk Schedule-9-IS403.apk
+      - name: Prepare Release APK
+        run: cp app/build/outputs/apk/release/app-release.apk Schedule-9-IS403.apk
 
-      - name: Upload APK artifact
+      - name: Upload Release APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: Schedule-9-IS403
