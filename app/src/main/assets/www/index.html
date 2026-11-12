@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>Расписание занятий — WHPP</title>
+    <link rel="canonical" href="https://rasp.whpp.site/">
+    <meta name="description" content="Расписание занятий: пары на сегодня и на неделю, подгруппы, аудитории и преподаватели. Быстро, офлайн и как приложение.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WHPP">
+    <meta property="og:title" content="Расписание — WHPP">
+    <meta property="og:description" content="Пары на сегодня и на неделю: время, аудитории, преподаватели. Подгруппы и автоматическая неделя.">
+    <meta property="og:url" content="https://rasp.whpp.site/">
+    <meta property="og:locale" content="ru_RU">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=whpp-api-2">
+    <script>try{var t=localStorage.getItem("whpp-rasp-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}</script>
+    <script src="script.js" defer></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Расписание — WHPP","url":"https://rasp.whpp.site/","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","inLanguage":"ru","offers":{"@type":"Offer","price":"0","priceCurrency":"RUB"},"description":"Расписание занятий: пары на сегодня и на неделю, подгруппы, аудитории и преподаватели."}
+    </script>
+</head>
+<body>
+    <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+
+    <header class="liquid-glass-header">
+        <div class="header-content">
+            <div class="header-titles">
+                <h1>Расписание</h1>
+                <div class="header-date" id="headerDate"></div>
+            </div>
+            <button class="header-settings-btn" id="headerSettingsBtn" type="button" aria-label="Открыть настройки" aria-expanded="false" aria-controls="settingsMenu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                </svg>
+                <span>Настройки</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="cards-container" id="cardsContainer">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+    </main>
+
+    <div class="footer-info">
+        Обновлено <span id="updateTime">только что</span>
+    </div>
+
+    <!-- Нативный Таб Бар -->
+    <nav class="liquid-tab-bar" aria-label="Нижняя навигация">
+        <button class="tab-btn js-today-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+                <path d="M9 16l2 2 4-4"></path>
+            </svg>
+            <span>Сегодня</span>
+        </button>
+
+        <button class="tab-btn" id="tabSettingsBtn" type="button" aria-expanded="false" aria-controls="settingsMenu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.79 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span>Настройки</span>
+        </button>
+
+        <a href="https://whpp.site/" class="tab-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            </svg>
+            <span>Сервисы</span>
+        </a>
+    </nav>
+
+    <!-- Меню настроек -->
+    <div class="settings-backdrop" id="settingsBackdrop" aria-hidden="true"></div>
+    <section class="settings-modal" id="settingsMenu" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" aria-hidden="true">
+        <div class="settings-header">
+            <h2 id="settingsTitle">Настройки</h2>
+            <button class="settings-close" id="settingsCloseBtn" type="button" aria-label="Закрыть настройки">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="settings-body">
+            <div class="settings-group">
+                <div class="settings-label">Неделя</div>
+                <div class="segmented-control" id="weekControl">
+                    <button class="segment" data-week="auto" type="button">Авто</button>
+                    <button class="segment" data-week="1" type="button">1 Нед.</button>
+                    <button class="segment" data-week="2" type="button">2 Нед.</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-label">Подгруппа</div>
+                <div class="segmented-control" id="subgroupControl">
+                    <button class="segment" data-subgroup="1" type="button">Подгруппа 1</button>
+                    <button class="segment" data-subgroup="2" type="button">Подгруппа 2</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-label">Оформление</div>
+                <button class="theme-switch-btn" id="themeToggle" type="button">
+                    <span>Тёмная тема</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="pwa-popup">
+        <div class="pwa-title">Добавить на экран «Домой»</div>
+        <div class="pwa-desc">Нажмите «Поделиться» и выберите «На экран „Домой“» для быстрых заходов</div>
+    </div>
+
+    <script>
+        (function () {
+            var el = document.getElementById('headerDate');
+            if (el) {
+                el.textContent = new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+            }
+        })();
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }; m[i].l = 1 * new Date(); for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } } k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a) })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(112719538, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: false });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/112719538" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script>
+        (function () {
+            var b = document.getElementById("themeToggle");
+            if (b) {
+                var s = b.querySelector("span");
+                function isDark() {
+                    var t = document.documentElement.getAttribute("data-theme");
+                    if (t === "dark") return true;
+                    if (t === "light") return false;
+                    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                }
+                function render() {
+                    var txt = isDark() ? "Включить светлую тему" : "Включить тёмную тему";
+                    if (s) { s.textContent = txt; } else { b.textContent = txt; }
+                }
+                b.addEventListener("click", function () {
+                    var n = isDark() ? "light" : "dark";
+                    document.documentElement.setAttribute("data-theme", n);
+                    try { localStorage.setItem("whpp-rasp-theme", n); } catch (e) {}
+                    render();
+                });
+                render();
+            }
+
+            var menu = document.getElementById("settingsMenu");
+            var backdrop = document.getElementById("settingsBackdrop");
+            var openBtns = [document.getElementById("headerSettingsBtn"), document.getElementById("tabSettingsBtn")].filter(Boolean);
+            var closeBtn = document.getElementById("settingsCloseBtn");
+
+            function setOpen(open) {
+                if (!menu || !backdrop) return;
+                menu.classList.toggle("open", open);
+                backdrop.classList.toggle("open", open);
+                menu.setAttribute("aria-hidden", open ? "false" : "true");
+                backdrop.setAttribute("aria-hidden", open ? "false" : "true");
+                openBtns.forEach(function (btn) { btn.setAttribute("aria-expanded", open ? "true" : "false"); });
+            }
+
+            openBtns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    setOpen(!menu.classList.contains("open"));
+                });
+            });
+            if (closeBtn) closeBtn.addEventListener("click", function () { setOpen(false); });
+            if (backdrop) backdrop.addEventListener("click", function () { setOpen(false); });
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && menu && menu.classList.contains("open")) setOpen(false);
+            });
+        })();
+    </script>
+</body>
+</html>
